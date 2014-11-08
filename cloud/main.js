@@ -8,5 +8,9 @@ AV.Cloud.define("hello", function(request, response) {
 });
 
 AV.Cloud.afterSave("Message", function(request) {
-	http.get("http://itms.sinaapp.com/sms/send.php?message=%E6%9C%89%E6%96%B0%E7%9A%84%E7%95%99%E8%A8%80%E4%BA%86",function(){});
+	var name = request.object.get("name");
+	var phone = request.object.get("phone");
+	var messageContent = request.object.get("messageContent");
+	var msg = 'name:'+name+' phone:'+phone+' messageContent'+messageContent;	
+	http.get("http://itms.sinaapp.com/sms/send.php?message="+encodeURI(msg),function(){});
 });
